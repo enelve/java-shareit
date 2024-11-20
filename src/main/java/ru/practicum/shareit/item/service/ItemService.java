@@ -59,8 +59,9 @@ public class ItemService {
 
     public Collection<Item> getItemByUser(Long userId) {
         userService.getById(userId);
-        return itemRepository.getAllItems().stream().filter(item -> item.getUserId().compareTo(userId) == 0)
-                .filter(Item::getAvailable).toList();
+        return itemRepository.getAllItems().stream()
+                .filter(item -> item.getUserId().compareTo(userId) == 0)
+                .toList();
     }
 
     private void validateItem(ItemDto itemDto) {
