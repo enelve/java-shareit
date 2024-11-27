@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name = "comment", schema = "public")
     public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
