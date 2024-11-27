@@ -26,7 +26,7 @@ public class UserService {
         if (userDto.getEmail() == null) throw new InvalidEmailException("Empty email");
         try {
             checkEmail(userDto.getEmail());
-            return userRepository.save(UserMapper.ToUser(userDto));
+            return userRepository.save(UserMapper.toUser(userDto));
         } catch (ConstraintViolationException | NullPointerException s) {
             throw new DuplicateEmailException(String.format("Duplicated email %s", userDto.getId()));
         }
@@ -37,7 +37,7 @@ public class UserService {
             checkEmail(user.getEmail());
         }
         UserDto userDto = UserMapper.toUserDto(user, getById(id));
-        User updatedUser = UserMapper.ToUser(userDto);
+        User updatedUser = UserMapper.toUser(userDto);
         updatedUser.setId(id);
         return userRepository.save(updatedUser);
     }

@@ -2,7 +2,6 @@ package ru.practicum.shareit.booking.mapper;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.booking.dto.BookingDataDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingStatus;
