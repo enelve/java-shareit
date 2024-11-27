@@ -24,7 +24,7 @@ public class BookingController {
         return bookingService.create(booking, id);
     }
 
-    @PatchMapping("{bookingId}")
+    @PatchMapping("/{bookingId}")
     public Booking update(@Valid @PathVariable Long bookingId,
                           @RequestHeader(HEADER_X_SHARER_USER_ID) Long userId,
                           @RequestParam Boolean approved) {
@@ -38,7 +38,7 @@ public class BookingController {
         return bookingService.getAllBookingByUser(id, state);
     }
 
-    @GetMapping("{bookingId}")
+    @GetMapping("/{bookingId}")
     public Booking getBookingByUser(@Valid @PathVariable Long bookingId,
                                     @RequestHeader(HEADER_X_SHARER_USER_ID) Long userId) {
 
