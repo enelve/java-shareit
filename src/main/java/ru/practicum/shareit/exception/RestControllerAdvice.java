@@ -36,9 +36,24 @@ public class RestControllerAdvice {
         return processException(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({InvalidEmailException.class, ItemNotValidException.class})
-    public ResponseEntity<Set<String>> handleException(RuntimeException e) {
+    @ExceptionHandler({InvalidEmailException.class})
+    public ResponseEntity<Set<String>> handleException(InvalidEmailException e) {
         return processException(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ItemNotValidException.class})
+    public ResponseEntity<Set<String>> handleException(ItemNotValidException e) {
+        return processException(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({UnknownBookingState.class})
+    public ResponseEntity<Set<String>> handleException(UnknownBookingState e) {
+        return processException(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({EmptyResult.class})
+    public ResponseEntity<Set<String>> handleException(EmptyResult e) {
+        return processException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({DuplicateEmailException.class})

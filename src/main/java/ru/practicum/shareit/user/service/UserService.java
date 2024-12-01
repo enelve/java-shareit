@@ -1,14 +1,16 @@
 package ru.practicum.shareit.user.service;
 
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exception.DuplicateEmailException;
 import ru.practicum.shareit.exception.InvalidEmailException;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.entity.User;
 import ru.practicum.shareit.user.mapper.UserMapper;
-import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.util.Collection;
@@ -16,13 +18,18 @@ import java.util.Collection;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
     private final UserRepository userRepository;
 
     public User create(UserDto userDto) {
         if (userDto.getEmail() == null) throw new InvalidEmailException("Empty email");
-        checkEmail(userDto.getEmail());
-        return userRepository.create(userDto);
+        try {
+            checkEmail(userDto.getEmail());
+            return userRepository.save(UserMapper.toUser(userDto));
+        } catch (ConstraintViolationException | NullPointerException s) {
+            throw new DuplicateEmailException(String.format("Duplicated email %s", userDto.getId()));
+        }
     }
 
     public User update(UserDto user, Long id) {
@@ -30,33 +37,33 @@ public class UserService {
             checkEmail(user.getEmail());
         }
         UserDto userDto = UserMapper.toUserDto(user, getById(id));
-        User updatedUser = UserMapper.dtoToUser(userDto);
+        User updatedUser = UserMapper.toUser(userDto);
         updatedUser.setId(id);
-        return userRepository.update(updatedUser, id);
+        return userRepository.save(updatedUser);
     }
 
+    @Transactional(readOnly = true)
     public User getById(Long id) {
-        return userRepository.getById(id)
+        return userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("User not found %s", id)));
     }
 
+    @Transactional(readOnly = true)
     public Collection<User> getAllUsers() {
-        return userRepository.getAllUsers();
+        return userRepository.findAll();
     }
 
-    public User deleteUser(Long id) {
-        if (userRepository.getById(id).isPresent()) {
-            return userRepository.deleteUser(id);
+    public void deleteUser(Long id) {
+        if (userRepository.findById(id).isPresent()) {
+            userRepository.deleteById(id);
         } else {
             throw new NotFoundException(String.format("User not found %s", id));
         }
     }
 
-    private boolean checkEmail(String email) {
-        for (User u : userRepository.getAllUsers()) {
-            if (u.getEmail().equals(email))
-                throw new DuplicateEmailException(String.format("DuplicateEmailException: %s", email));
+    private void checkEmail(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new DuplicateEmailException(String.format("DuplicateEmailException: %s", email));
         }
-        return true;
     }
 }
