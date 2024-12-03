@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS item (
     description varchar(60),
     available BOOLEAN,
     user_id BIGINT,
+    request_id BIGINT,
     booking_id BIGINT);
 
 CREATE TABLE IF NOT EXISTS booking (
@@ -24,4 +25,10 @@ CREATE TABLE IF NOT EXISTS comment (
     text varchar(60),
     item_id BIGINT,
     author_name varchar(60),
+    created TIMESTAMP WITHOUT TIME ZONE);
+
+CREATE TABLE IF NOT EXISTS request (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    description varchar(256),
+    user_id BIGINT,
     created TIMESTAMP WITHOUT TIME ZONE);

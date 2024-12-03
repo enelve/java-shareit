@@ -18,15 +18,17 @@ public class ItemMapper {
         return new Item(itemDto.getId() != null ? itemDto.getId() : item.getId(),
                 itemDto.getName() != null ? itemDto.getName() : item.getName(),
                 itemDto.getDescription() != null ? itemDto.getDescription() : item.getDescription(),
-                itemDto.getAvailable() != null ? itemDto.getAvailable() : item.getAvailable(), user);
+                itemDto.getAvailable() != null ? itemDto.getAvailable() : item.getAvailable(),
+                item.getRequestId(), user);
     }
 
     public static Item toItem(ItemDto itemDto, User user) {
-        return new Item(itemDto.getId(), itemDto.getName(), itemDto.getDescription(), itemDto.getAvailable(), user);
+        return new Item(itemDto.getId(), itemDto.getName(), itemDto.getDescription(), itemDto.getAvailable(), itemDto.getRequestId(), user);
     }
 
     public static ItemDataDto itemToDataDtoNoBooking(Item item, List<Comment> comment) {
-        return new ItemDataDto(item.getId(), item.getName(), item.getDescription(), item.getAvailable(), null, null, comment, item.getUser());
+        return new ItemDataDto(item.getId(), item.getName(), item.getDescription(), item.getAvailable(), null, null,
+                comment, item.getUser(), item.getRequestId());
     }
 
     public static ItemDataDto itemToDataDto(List<Booking> booking, List<Booking> bookingNext, List<Comment> comment) {
@@ -34,7 +36,7 @@ public class ItemMapper {
                 booking.get(0).getItem().getDescription(), booking.get(0).getItem().getAvailable(),
                 BookingMapper.toDto(booking.get(0)),
                 bookingNext.size() > 1 ? BookingMapper.toDto(bookingNext.get(bookingNext.size() - 1)) : null,
-                comment, booking.get(0).getItem().getUser());
+                comment, booking.get(0).getItem().getUser(), booking.get(0).getItem().getRequestId());
     }
 
 }

@@ -136,6 +136,10 @@ public class ItemService {
         }
     }
 
+    public List<Item> getByRequestId(Long requestId) {
+        return itemRepository.findByRequestId(requestId);
+    }
+
     private void checkItem(ItemDto itemDto) {
         if (itemDto.getName() == null || itemDto.getName().isBlank() ||
                 itemDto.getDescription() == null || itemDto.getDescription().isBlank() ||

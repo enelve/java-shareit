@@ -16,6 +16,9 @@ import java.util.Set;
 @ControllerAdvice
 public class RestControllerAdvice {
 
+    private record Error(String error, String description) {
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(
             MethodArgumentNotValidException ex) {
@@ -42,8 +45,10 @@ public class RestControllerAdvice {
     }
 
     @ExceptionHandler({ItemNotValidException.class})
-    public ResponseEntity<Set<String>> handleException(ItemNotValidException e) {
-        return processException(e.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Error> handleException(ItemNotValidException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new Error("ItemNotValidException", e.getMessage()));
     }
 
     @ExceptionHandler({UnknownBookingState.class})

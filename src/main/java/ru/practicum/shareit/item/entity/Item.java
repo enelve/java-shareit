@@ -27,6 +27,9 @@ public class Item {
     @NotNull
     private Boolean available;
 
+    @Column(name = "request_id", nullable = true)
+    private Long requestId;
+
     @ManyToOne
     private User user;
 }
