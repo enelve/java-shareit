@@ -3,7 +3,6 @@ package ru.practicum.shareit.server.request.mapper;
 import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.server.request.dto.RequestDto;
 import ru.practicum.shareit.server.request.entity.Request;
-import ru.practicum.shareit.server.user.mapper.UserMapper;
 
 @UtilityClass
 public class RequestMapper {

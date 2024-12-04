@@ -13,7 +13,6 @@ import ru.practicum.shareit.server.request.controller.RequestController;
 import ru.practicum.shareit.server.request.dto.RequestDto;
 import ru.practicum.shareit.server.request.entity.Request;
 import ru.practicum.shareit.server.request.service.RequestService;
-import ru.practicum.shareit.server.user.dto.UserDto;
 import ru.practicum.shareit.server.user.entity.User;
 
 import java.nio.charset.StandardCharsets;

@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import ru.practicum.shareit.server.item.entity.Item;
-import ru.practicum.shareit.server.user.dto.UserDto;
 import ru.practicum.shareit.server.user.entity.User;
 
 import java.time.LocalDateTime;
