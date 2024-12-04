@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @Accessors(chain = true)
 @AllArgsConstructor
-public class RequestDTO {
+public class RequestDto {
     private Long id;
     private String description;
     private LocalDateTime created;

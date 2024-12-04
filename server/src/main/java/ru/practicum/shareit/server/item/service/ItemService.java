@@ -69,8 +69,7 @@ public class ItemService {
                     .toList();
 
             List<Booking> bookingNext = bookingRepository.findByItemIdOrderByEndDesc(id).stream()
-                    .filter(p -> p.getEnd().isAfter(time) &&
-                            p.getStart().isAfter(time) &&
+                    .filter(p -> p.getEnd().isAfter(time) && p.getStart().isAfter(time) &&
                             p.getItem().getUser().getId().equals(userID))
                     .toList();
 
@@ -140,7 +139,7 @@ public class ItemService {
         return itemRepository.findByRequestId(requestId);
     }
 
-    private void checkItem(ItemDto itemDto) {
+    public void checkItem(ItemDto itemDto) {
         if (itemDto.getName() == null || itemDto.getName().isBlank() ||
                 itemDto.getDescription() == null || itemDto.getDescription().isBlank() ||
                 itemDto.getAvailable() == null) {

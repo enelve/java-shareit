@@ -46,8 +46,7 @@ public class RestControllerAdvice {
 
     @ExceptionHandler({ItemNotValidException.class})
     public ResponseEntity<Error> handleException(ItemNotValidException e) {
-        return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new Error("ItemNotValidException", e.getMessage()));
     }
 
@@ -73,8 +72,6 @@ public class RestControllerAdvice {
 
     private ResponseEntity<Set<String>> processException(String message, HttpStatus httpStatus) {
         log.error("Client request error: {}", message);
-        return ResponseEntity
-                .status(httpStatus)
-                .body(Set.of(message));
+        return ResponseEntity.status(httpStatus).body(Set.of(message));
     }
 }

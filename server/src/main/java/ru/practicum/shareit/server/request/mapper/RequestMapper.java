@@ -1,13 +1,13 @@
 package ru.practicum.shareit.server.request.mapper;
 
 import lombok.experimental.UtilityClass;
-import ru.practicum.shareit.server.request.dto.RequestDTO;
+import ru.practicum.shareit.server.request.dto.RequestDto;
 import ru.practicum.shareit.server.request.entity.Request;
 import ru.practicum.shareit.server.user.mapper.UserMapper;
 
 @UtilityClass
 public class RequestMapper {
-    public static Request toRequest(RequestDTO requestDTO) {
+    public static Request toRequest(RequestDto requestDTO) {
         return Request.builder()
                 .id(requestDTO.getId())
                 .description(requestDTO.getDescription())
@@ -16,8 +16,8 @@ public class RequestMapper {
                 .build();
     }
 
-    public static RequestDTO toDto(Request request) {
-        return RequestDTO.builder()
+    public static RequestDto toDto(Request request) {
+        return RequestDto.builder()
                 .id(request.getId())
                 .description(request.getDescription())
                 .created(request.getCreated())

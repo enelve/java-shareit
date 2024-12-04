@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.server.exception.NotFoundException;
 import ru.practicum.shareit.server.item.entity.Item;
 import ru.practicum.shareit.server.item.service.ItemService;
-import ru.practicum.shareit.server.request.dto.RequestDTO;
+import ru.practicum.shareit.server.request.dto.RequestDto;
 import ru.practicum.shareit.server.request.entity.Request;
 import ru.practicum.shareit.server.request.mapper.RequestMapper;
 import ru.practicum.shareit.server.request.repository.RequestRepository;
@@ -30,21 +30,21 @@ public class RequestService {
     private final ItemService itemService;
 
 
-    public Request create(@NotNull RequestDTO requestDto, Long userId) {
+    public Request create(@NotNull RequestDto requestDto, Long userId) {
         Request request = RequestMapper.toRequest(requestDto)
                 .setUser(userService.getById(userId))
                 .setCreated(LocalDateTime.now());
         return requestRepository.save(request);
     }
 
-    public List<RequestDTO> getByUserId(Long userId) {
+    public List<RequestDto> getByUserId(Long userId) {
         return requestRepository.findByUserOrderByCreatedDesc(getUser(userId)).stream()
                 .map(RequestMapper::toDto)
-                .map(requestDTO -> requestDTO.setItems(itemService.getByRequestId(requestDTO.getId())))
+                .map(requestDto -> requestDto.setItems(itemService.getByRequestId(requestDto.getId())))
                 .toList();
     }
 
-    public RequestDTO getByRequestId(Long userId, Long requestId) {
+    public RequestDto getByRequestId(Long userId, Long requestId) {
         Request request = requestRepository.findById(requestId)
                 .orElseThrow(() -> new NotFoundException("NotFoundException"));
         List<Item> items = itemService.getByRequestId(requestId);
@@ -52,10 +52,10 @@ public class RequestService {
         return RequestMapper.toDto(request).setItems(items);
     }
 
-    public List<RequestDTO> getAll(Long userId) {
+    public List<RequestDto> getAll(Long userId) {
         return requestRepository.findAllByUserNot(getUser(userId)).stream()
                 .map(RequestMapper::toDto)
-                .map(requestDTO -> requestDTO.setItems(itemService.getByRequestId(requestDTO.getId())))
+                .map(requestDto -> requestDto.setItems(itemService.getByRequestId(requestDto.getId())))
                 .toList();
     }
 
