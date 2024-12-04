@@ -32,7 +32,7 @@ class RequestServiceTest {
     private final User user = new User(1L, "user", "email@email.ru");
     private final UserDto userDto = new UserDto(999L, "Someone", "email@email.ru");
     private final UserDto userDto2 = new UserDto(999L, "Someone2", "email2@email.ru");
-    private final RequestDto itemRequestDto = new RequestDto(1L, "request", LocalDateTime.of(2024, 2, 2, 2, 2), userDto, List.of());
+    private final RequestDto itemRequestDto = new RequestDto(1L, "request", LocalDateTime.of(2024, 2, 2, 2, 2), user, List.of());
     private final RequestDto itemGetRequestDto = new RequestDto(1L, "request", LocalDateTime.of(2024, 2, 2, 2, 2), null, List.of());
 
     @Test

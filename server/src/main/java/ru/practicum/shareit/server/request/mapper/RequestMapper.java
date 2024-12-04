@@ -12,7 +12,7 @@ public class RequestMapper {
                 .id(requestDTO.getId())
                 .description(requestDTO.getDescription())
                 .created(requestDTO.getCreated())
-                .user(UserMapper.toUser(requestDTO.getUser()))
+                .user(requestDTO.getUser())
                 .build();
     }
 
@@ -21,7 +21,7 @@ public class RequestMapper {
                 .id(request.getId())
                 .description(request.getDescription())
                 .created(request.getCreated())
-                .user(UserMapper.toDto(request.getUser()))
+                .user(request.getUser())
                 .build();
     }
 }

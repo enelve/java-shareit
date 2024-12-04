@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class RequestControllerTest {
     private final User user = new User(1L, "user", "email@email.ru");
     private final Request request = new Request(1L, "request", user, LocalDateTime.of(2024, 2, 2, 2, 2));
-    private final RequestDto requestDto = new RequestDto(1L, "request", LocalDateTime.of(2024, 2, 2, 2, 2), new UserDto(), List.of());
+    private final RequestDto requestDto = new RequestDto(1L, "request", LocalDateTime.of(2024, 2, 2, 2, 2), new User(), List.of());
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     @Autowired
     private MockMvc mvc;
